@@ -71,6 +71,8 @@ Once done with edits, save the files.
 > -u = flag as a remote tracking branch.
 > <branch> = name of branch being pushed.
 
+***If you end up having credential/access issues/error when pushing, let me know and I'll add you as a collaborator.***
+
 ### 8. Create A Pull Request From GitHub Repository
 
     1. Login to GitHub.
