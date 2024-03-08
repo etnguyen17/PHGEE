@@ -59,7 +59,7 @@ Once done with edits, save the files.
 > where:
 > -A = flag to add all changes.
 > -m = flag to add a commit message.
-- <msg> = Short message explaing commit.  Must be enclosed by double quotes.
+> <msg> = Short message explaing commit.  Must be enclosed by double quotes.
 
 -OR-
 
