@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605439084225",
+    "project_id": "phgeemedapp",
+    "storage_bucket": "phgeemedapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605439084225:android:bc5a9ae81f3c784427b640",
+        "android_client_info": {
+          "package_name": "com.example.phgeemedapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZZzEhrnH_wUmr9nIYElJKzwWmOT5yjqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
