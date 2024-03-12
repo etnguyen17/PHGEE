@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccount extends AppCompatActivity {
     EditText editTextEmail, editTextPassword, editTextName, editTextPhone;
+
+    Spinner spinner;
     Button buttonReg,back;
 
     TextView textView;
@@ -34,6 +39,7 @@ public class CreateAccount extends AppCompatActivity {
     DatabaseReference reference;
     static final String USER = "user";
     static final String TAG = "RegisterActivity";
+    String[] roles = new String[]{"Patient","Nurse","Doctor"};
 
     Users users;
 
@@ -59,6 +65,12 @@ public class CreateAccount extends AppCompatActivity {
         textView = findViewById(R.id.textView5);
         editTextName = findViewById(R.id.name);
         editTextPhone = findViewById(R.id.Phone);
+
+        spinner = findViewById(R.id.spinner);
+        ArrayAdapter<String>adapter =new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,roles);
+        adapter.setDropDownViewResource((android.R.layout.simple_spinner_dropdown_item));
+        spinner.setAdapter(adapter);
+
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(USER);
         back = findViewById(R.id.back2);
@@ -72,14 +84,16 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
 
+
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password, name, phoneNumber;
+                String email, password, name, phoneNumber,role;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
                 phoneNumber = String.valueOf(editTextPhone.getText());
+                role = spinner.getSelectedItem().toString();
 
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(CreateAccount.this, "Enter email.", Toast.LENGTH_SHORT).show();
@@ -96,7 +110,7 @@ public class CreateAccount extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    users = new Users(name,email,phoneNumber,password);
+                                    users = new Users(name,email,phoneNumber,password,role);
                                     //reference.child(name).setValue(helperClass);
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
@@ -114,6 +128,7 @@ public class CreateAccount extends AppCompatActivity {
         });
 
     }
+
     public void updateUI(FirebaseUser currentUser){
         //Try AuthID to actually replace the new userID....This means we get the auth ID keys and paste it to the corresponding user ID keys
         //This relates to getting the correct info displayed from homepage

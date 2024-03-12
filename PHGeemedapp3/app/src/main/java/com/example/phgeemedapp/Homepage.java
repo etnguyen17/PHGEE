@@ -118,9 +118,9 @@ public class Homepage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 if(users !=null){
-                    sName = users.name;
-                    sEmail = users.email;
-                    sPhone = users.phonenum;
+                    sName ="Name: " + users.name;
+                    sEmail ="Email: " + users.email;
+                    sPhone ="Phone Number: " +  users.phonenum;
                     editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
