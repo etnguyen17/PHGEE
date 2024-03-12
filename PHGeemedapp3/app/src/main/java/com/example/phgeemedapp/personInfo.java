@@ -15,7 +15,7 @@ public class personInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
-        button =(Button) findViewById(R.id.button11);
+        button =(Button) findViewById(R.id.returnHome);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {openHomepage();}
