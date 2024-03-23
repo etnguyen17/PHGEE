@@ -2,21 +2,22 @@ package com.example.phgeemedapp;
 
 public class Users {
 
-        String name,email, phonenum, username, password,role;
+        String name,email, phonenum, password,role;
+
+        //BasicInfo basicInfo;
 
     public Users() {
     }
 
-    public Users(String name, String email, /*String username,*/ String phonenum, String password,String role) {
+    public Users(String name, String email,  String phonenum, String password) {
         this.name = name;
         this.email = email;
         this.phonenum = phonenum;
         //this.username = username;
         this.password = password;
-        this.role =role;
     }
     public String getRole(){return role;}
-    public void setRole(String role){this.role = name;}
+    public void setRole(String role){this.role = role;}
 
     public String getName() {
         return name;
@@ -42,13 +43,6 @@ public class Users {
         this.phonenum = phonenum;
     }
 
-   /* public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }*/
 
     public String getPassword() {
         return password;
@@ -57,4 +51,17 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+   /* public class BasicInfo {
+
+        public String bloodType = "Need Update";
+        public String getBloodType() {
+            return bloodType;
+        }
+
+        public void setBloodType(String bloodType) {
+            this.bloodType = bloodType;
+        }
+   }
+    */
 }
