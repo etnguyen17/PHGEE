@@ -42,6 +42,7 @@ public class CreateAccount extends AppCompatActivity {
     String[] roles = new String[]{"Patient","Nurse","Doctor"};
 
     Users users;
+    //BasicInfo basicInfo;
 
     public void onStart() {
         super.onStart();
@@ -93,7 +94,9 @@ public class CreateAccount extends AppCompatActivity {
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
                 phoneNumber = String.valueOf(editTextPhone.getText());
-                role = spinner.getSelectedItem().toString();
+                role =String.valueOf(spinner.getSelectedItem().toString());
+                //role = spinner.getSelectedItem().toString();
+                //role = "Doctor";
 
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(CreateAccount.this, "Enter email.", Toast.LENGTH_SHORT).show();
@@ -110,7 +113,9 @@ public class CreateAccount extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    users = new Users(name,email,phoneNumber,password,role);
+                                    users = new Users(name,email,phoneNumber,password);
+                                    users.setRole(role);
+                                    //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);

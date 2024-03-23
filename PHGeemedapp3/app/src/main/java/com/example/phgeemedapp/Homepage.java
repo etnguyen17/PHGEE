@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,22 +20,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Homepage extends AppCompatActivity {
-    private Button button,logout;
+    private Button button,logout,edit,confirm;
 
-    TextView editName, editEmail, editPhone;
+    TextView editName, editEmail, editPhone, editRole;
 
-    String sName,sEmail,sPhone;
+    String sName,sEmail,sPhone,sBlood,extra,sRole;
     FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_homepage);
         logout = (Button) findViewById(R.id.button3);
 
         editName = findViewById(R.id.textViewName);
         editEmail = findViewById(R.id.textViewEmail);
         editPhone = findViewById(R.id.textViewNumber);
+        editRole = findViewById(R.id.textViewRole);
+
 
 
         auth = FirebaseAuth.getInstance();
@@ -90,6 +94,7 @@ public class Homepage extends AppCompatActivity {
             }
         }));
 
+
     }
 
     public void openSearchActivity(){//added
@@ -118,13 +123,18 @@ public class Homepage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 if(users !=null){
+
                     sName ="Name: " + users.name;
                     sEmail ="Email: " + users.email;
                     sPhone ="Phone Number: " +  users.phonenum;
+                    sRole = "Role: " + users.getRole();
                     editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
+                    editRole.setText((sRole));
                 }
+
+
                 else{
 
                     editName.setText("Name-Error, Couldn't reach user info");
