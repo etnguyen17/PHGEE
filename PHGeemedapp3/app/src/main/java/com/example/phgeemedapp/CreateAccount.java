@@ -15,7 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phgeemedapp.databinding.ActivityCreateAccountBinding;
+import com.example.phgeemedapp.Homepage;
+import com.example.phgeemedapp.Users;
+//import com.example.phgeemedapp.databinding.ActivityCreateAccountBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -140,7 +142,7 @@ public class CreateAccount extends AppCompatActivity {
         String userID = currentUser.getUid();//THIS IS NEW
         String keyId = reference.push().getKey();
         reference.child(userID).setValue(users);
-        Intent intent = new Intent(this,Homepage.class);
+        Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
     }
 }

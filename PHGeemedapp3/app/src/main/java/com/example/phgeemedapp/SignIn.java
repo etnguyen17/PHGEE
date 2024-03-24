@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
     }
    to build.gradle.kts(Module : apps) remove if it causes problems
 */
+
 public class SignIn extends AppCompatActivity {
     private Button clear,createAccount,forgot;
 

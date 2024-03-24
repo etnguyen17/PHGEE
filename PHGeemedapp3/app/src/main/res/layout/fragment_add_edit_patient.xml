@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add_edit_patientFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".add_edit_patient"
+            tools:layout_editor_absoluteX="-4dp"
+            tools:layout_editor_absoluteY="-6dp">
+
+            <TextView
+                android:id="@+id/em"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216dp"
+                android:layout_marginBottom="308dp"
+                android:text="Emergency Contact"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/emPhone"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="208dp"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/emFullName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="252dp"
+                android:ems="10"
+                android:hint="Full Name"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/emEmail"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="164dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/rhFactor"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="592dp"
+                android:ems="10"
+                android:hint="RH Factor"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="212dp"
+                android:layout_marginTop="40dp"
+                android:text="Health Information"
+                app:layout_constraintBottom_toTopOf="@+id/rhFactor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.514" />
+
+            <EditText
+                android:id="@+id/bloodgroup"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="548dp"
+                android:ems="10"
+                android:hint="Blood Group"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/currentIll"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="496dp"
+                android:ems="10"
+                android:hint="Current illnesses"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/previousIll"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="448dp"
+                android:ems="10"
+                android:hint="Previous illnesses"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/allergies"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="208dp"
+                android:layout_marginBottom="400dp"
+                android:ems="10"
+                android:hint="Specific allergies"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="40dp"
+                android:text="Personal Information"
+                app:layout_constraintBottom_toTopOf="@+id/PatientID"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.514" />
+
+            <EditText
+                android:id="@+id/firstname"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="548dp"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/PatientID"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="592dp"
+                android:ems="10"
+                android:hint="PatientID"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/middle"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="496dp"
+                android:ems="10"
+                android:hint="Middle Name"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/lastname"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="448dp"
+                android:ems="10"
+                android:hint="Last Name"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/dateBirth"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="404dp"
+                android:ems="10"
+                android:hint="Date of Birth"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="356dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/maritalStat"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="308dp"
+                android:ems="10"
+                android:hint="Marital Status"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/phoneNumber2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="260dp"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/mobilePhone"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="212dp"
+                android:ems="10"
+                android:hint="Mobile Number"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/patientEmail"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginBottom="164dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Patient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.83" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</FrameLayout>

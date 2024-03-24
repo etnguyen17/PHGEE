@@ -56,12 +56,12 @@ public class forgotPass extends AppCompatActivity {
     private void ResetPassword(){
         submit.setVisibility(View.INVISIBLE);
         mAuth.sendPasswordResetEmail(Email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(forgotPass.this, "Reset  Password link has been sent to your registered Email", Toast.LENGTH_SHORT);
-                        openMainActivity();
-                    }
-                })
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(forgotPass.this, "Reset  Password link has been sent to your registered Email", Toast.LENGTH_SHORT);
+                openMainActivity();
+            }
+        })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

@@ -2,9 +2,9 @@ package com.example.phgeemedapp;
 
 public class Users {
 
-        String name,email, phonenum, password,role;
+    String name,email, phonenum, password,role;
 
-        //BasicInfo basicInfo;
+    //BasicInfo basicInfo;
 
     public Users() {
     }
