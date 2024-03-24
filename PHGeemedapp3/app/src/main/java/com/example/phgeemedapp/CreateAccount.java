@@ -91,12 +91,31 @@ public class CreateAccount extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password, name, phoneNumber,role;
+                String email, password, name, phoneNumber,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
+                        bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
                 phoneNumber = String.valueOf(editTextPhone.getText());
                 role =String.valueOf(spinner.getSelectedItem().toString());
+                patientID = "";
+                firstName = "";
+                middleName = "";
+                lastName = "";
+                pemail = "";
+                dateBirth = "";
+                bloodType = "";
+                RHfactor = "";
+                maritalStatus = "";
+                age = "";
+                phone = "";
+                mobile = "";
+                ememail = "";
+                emName = "";
+                emPhone = "";
+                currentIllnesses = "";
+                previousIllnesses = "";
+                allergies = "";
                 //role = spinner.getSelectedItem().toString();
                 //role = "Doctor";
 
@@ -115,7 +134,8 @@ public class CreateAccount extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    users = new Users(name,email,phoneNumber,password);
+                                    users = new Users(name,email,phoneNumber,password,patientID, firstName, middleName, lastName,pemail, dateBirth,
+                                            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                                     users.setRole(role);
                                     //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);

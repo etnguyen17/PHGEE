@@ -17,6 +17,7 @@ import com.example.phgeemedapp.databinding.FragmentPersonInfoBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,7 +28,7 @@ public class add_edit_patientFragment extends Fragment {
             editTextage, editTextphone, editTextmobile,
             editTextememail, editTextemName, editTextemPhone, editTextcurrentIllnesses, editTextpreviousIllnesses, editTextallergies;
     TextView textView;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth, auth;
     FirebaseDatabase database;
     DatabaseReference reference;
     patient patient;
@@ -45,6 +46,7 @@ public class add_edit_patientFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_add_edit_patient, container, false);
         mAuth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         button = view.findViewById(R.id.button8);
         editTextPatientID = view.findViewById(R.id.PatientID);
         editTextFirstName = view.findViewById(R.id.firstname);
@@ -92,7 +94,7 @@ public class add_edit_patientFragment extends Fragment {
                 if(!patientID.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !dateBirth.isEmpty() && !pemail.isEmpty() && !currentIllnesses.isEmpty() && !previousIllnesses.isEmpty() && !allergies.isEmpty()){
                     patient = new patient(patientID, firstName, middleName, lastName, pemail, dateBirth, bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                     database = FirebaseDatabase.getInstance();
-                    reference = database.getReference("Patients");
+                    reference = database.getReference("Patient");
                     reference.child(pemail).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
