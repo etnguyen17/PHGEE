@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -51,7 +52,11 @@ public class SearchActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Users user = dataSnapshot.getValue(Users.class);
+                    //only patients will be show on card is search patients
+                    assert user != null;
+                    if(Objects.equals(user.getRole(), "Patient")) {
                         list.add(user);
+                    }
                 }
                 myAdapter.notifyDataSetChanged();
             }
