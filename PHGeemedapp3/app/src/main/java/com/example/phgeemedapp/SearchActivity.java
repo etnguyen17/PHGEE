@@ -53,10 +53,10 @@ public class SearchActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Users user = dataSnapshot.getValue(Users.class);
                     //only patients will be show on card is search patients
-                    assert user != null;
-                    if(Objects.equals(user.getRole(), "Patient")) {
+                    //assert user != null;
+                    //if(Objects.equals(user.getRole(), "Patient")) {
                         list.add(user);
-                    }
+                   // }
                 }
                 myAdapter.notifyDataSetChanged();
             }

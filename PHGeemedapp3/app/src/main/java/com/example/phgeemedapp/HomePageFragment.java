@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class HomePageFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     NavigationView navigationView;
+    DatabaseReference doctor, patient;
+    String role;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,21 +89,22 @@ public class HomePageFragment extends Fragment {
         if(firebaseUser == null) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
         } else {
+            //role = checkType(firebaseUser);
             showUserProfile(firebaseUser);
         }
         return view;
     }
     private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user");
-        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user2");
+        referenceProfile.child("Doctors and Nurses").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 if (users != null) {
-                    sName = "Name: " + users.name;
-                    sEmail = "Email: " + users.email;
-                    sPhone = "Phone Number: " + users.phonenum;
+                    sName = "Name: " + users.getName();
+                    sEmail = "Email: " + users.getEmail();
+                    sPhone = "Phone Number: " + users.getPhonenum();
                     editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
@@ -117,6 +121,52 @@ public class HomePageFragment extends Fragment {
 
             }
         });
+   /* public String checkType(FirebaseUser currentUser){
+        String roles = "Doctor and Nurse";
+        String roles2 = "Patient";
+        String userID = currentUser.getUid();
+        final String[] userIDTEMP = new String[1];
+        final String[] temprole = new String[1];
+        final Boolean[] temp = new Boolean[2];
+        doctor = FirebaseDatabase.getInstance().getReference("user2");
+        doctor.child("Doctor and Nurse").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                String roles = users.getRole();
+                if(roles.equals("Doctor")||roles.equals("Nurse")){
+                    temp[0] = true;
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        doctor.child("Patient").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                assert users != null;
+                String roles = users.getRole();
+                if((roles.equals("Doctor"))||roles.equals("Nurse")) {
+                    temp[1] = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if(temp[0] != null){
+            return roles;
+        }
+        else if(temp[1]!= null) {
+            return roles2;
+        }
+        return "";
+    }*/
     }
 }

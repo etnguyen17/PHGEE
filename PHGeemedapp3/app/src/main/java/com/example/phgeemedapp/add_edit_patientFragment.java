@@ -29,8 +29,8 @@ public class add_edit_patientFragment extends Fragment {
             editTextememail, editTextemName, editTextemPhone, editTextcurrentIllnesses, editTextpreviousIllnesses, editTextallergies;
     TextView textView;
     FirebaseAuth mAuth, auth;
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    FirebaseDatabase database, dat2;
+    DatabaseReference reference, ref2;
     patient patient;
     String patientID, firstName, middleName, lastName,pemail, dateBirth, bloodType, RHfactor, maritalStatus,
             age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
@@ -94,8 +94,8 @@ public class add_edit_patientFragment extends Fragment {
                 if(!patientID.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !dateBirth.isEmpty() && !pemail.isEmpty() && !currentIllnesses.isEmpty() && !previousIllnesses.isEmpty() && !allergies.isEmpty()){
                     patient = new patient(patientID, firstName, middleName, lastName, pemail, dateBirth, bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                     database = FirebaseDatabase.getInstance();
-                    reference = database.getReference("Patient");
-                    reference.child(pemail).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference = database.getReference("user");
+                    reference.child(firstName).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             editTextPatientID.setText("");

@@ -1,7 +1,7 @@
 package com.example.phgeemedapp;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Homepage extends AppCompatActivity {
+public class HomepagePatientActivity extends AppCompatActivity {
     private Button button;
     TextView editName, barName, editEmail, editPhone;
 
@@ -37,43 +37,40 @@ public class Homepage extends AppCompatActivity {
     FirebaseUser user;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
-        //Toast.makeText(getApplicationContext(), "Going to DocPage", Toast.LENGTH_SHORT).show();
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        setContentView(R.layout.activity_homepage_patient);
+        drawerLayout = findViewById(R.id.drawer_layout2);
+        navigationView = findViewById(R.id.nav_view2);
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
         user = auth.getCurrentUser();
-        findViewById(R.id.menuIcon).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.menuIcon2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
         });
-        NavController navController = Navigation.findNavController(this,R.id.navigationHostFragment);
+        NavController navController = Navigation.findNavController(this,R.id.navigationHostFragment2);
         NavigationUI.setupWithNavController(navigationView,navController);
-        findViewById(R.id.moreIcon).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.moreIcon2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Going to DocPage", Toast.LENGTH_SHORT).show();
-                PopupMenu popupMenu = new PopupMenu(Homepage.this, v);
-                popupMenu.getMenuInflater().inflate(R.menu.dots_menu, popupMenu.getMenu());
+                //Toast.makeText(getApplicationContext(), "Going to PatientPage", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(HomepagePatientActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.dots_menu2, popupMenu.getMenu());
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
-                        if(itemId== R.id.logoutUser){
-                                FirebaseAuth.getInstance().signOut();
-                                finish();
-                                Intent intent = new Intent(getApplicationContext(), SignIn.class);
-                                startActivity(intent);
-                                Toast.makeText(Homepage.this, "You have been signed out", Toast.LENGTH_SHORT).show();
-                                return true;
+                        if(itemId== R.id.logoutUser2){
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                            startActivity(intent);
+                            Toast.makeText(HomepagePatientActivity.this, "You have been signed out", Toast.LENGTH_SHORT).show();
+                            return true;
                         }
                         return false;
                     }
@@ -89,7 +86,7 @@ public class Homepage extends AppCompatActivity {
         } else {
             showUserProfile(firebaseUser);
         }*/
-    }
+        }
     /*private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user");
@@ -131,7 +128,7 @@ public class Homepage extends AppCompatActivity {
     }
 
     //@Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    /*public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.logoutUser) {
             FirebaseAuth.getInstance().signOut();
@@ -141,20 +138,20 @@ public class Homepage extends AppCompatActivity {
         }
         //drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     public void updateNavHeader() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         View headerView = navigationView.getHeaderView(0);
         TextView navName = headerView.findViewById(R.id.nav_name);
         String userID = user.getUid();
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user2");
-        referenceProfile.child("Doctors and Nurses").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        referenceProfile.child("Patients").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                if (users != null) {
-                    navName.setText("Hi, " +users.name);
+                patient patient = snapshot.getValue(patient.class);
+                if (patient != null) {
+                    navName.setText("Hi, " +patient.pemail);
                 }
                 else{
                     navName.setText("No username");
@@ -169,9 +166,7 @@ public class Homepage extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.dots_menu, menu);
+        inflater.inflate(R.menu.dots_menu2, menu);
         return true;
     }
-
-
 }

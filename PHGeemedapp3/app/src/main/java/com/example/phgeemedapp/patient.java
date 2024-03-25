@@ -3,6 +3,9 @@ package com.example.phgeemedapp;
 public class patient {
     String patientID, firstName, middleName, lastName,pemail, dateBirth, bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
 
+    public patient(){
+
+    }
     public patient(String patientID, String firstName, String middleName, String lastName, String pemail, String dateBirth, String bloodType, String RHfactor, String maritalStatus, String age,
                    String phone, String mobile, String ememail, String emName, String emPhone, String currentIllnesses, String previousIllnesses, String allergies) {
         this.patientID = patientID;
