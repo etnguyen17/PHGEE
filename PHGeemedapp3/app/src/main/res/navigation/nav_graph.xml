@@ -3,26 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/menuHome">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.phgeemedapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        android:id="@+id/menuHome"
+        android:name="com.example.phgeemedapp.HomePageFragment"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.phgeemedapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        android:id="@+id/menuCreateAppointments"
+        android:name="com.example.phgeemedapp.AppointmentsFragment"
+        android:label="fragment_appointments"
+        tools:layout="@layout/fragment_appointments" />
+    <fragment
+        android:id="@+id/menuProfile"
+        android:name="com.example.phgeemedapp.personInfoFragment"
+        android:label="fragment_person_info"
+        tools:layout="@layout/fragment_person_info" />
+    <fragment
+        android:id="@+id/menuAddeEditpatient"
+        android:name="com.example.phgeemedapp.add_edit_patientFragment"
+        android:label="fragment_add_edit_patient"
+        tools:layout="@layout/fragment_add_edit_patient" />
+    <activity
+        android:id="@+id/menuSearchPatient"
+        android:name="com.example.phgeemedapp.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
 </navigation>

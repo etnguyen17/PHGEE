@@ -15,7 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phgeemedapp.databinding.ActivityCreateAccountBinding;
+import com.example.phgeemedapp.Homepage;
+import com.example.phgeemedapp.Users;
+//import com.example.phgeemedapp.databinding.ActivityCreateAccountBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -89,12 +91,31 @@ public class CreateAccount extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password, name, phoneNumber,role;
+                String email, password, name, phoneNumber,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
+                        bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
                 phoneNumber = String.valueOf(editTextPhone.getText());
                 role =String.valueOf(spinner.getSelectedItem().toString());
+                patientID = "";
+                firstName = "";
+                middleName = "";
+                lastName = "";
+                pemail = "";
+                dateBirth = "";
+                bloodType = "";
+                RHfactor = "";
+                maritalStatus = "";
+                age = "";
+                phone = "";
+                mobile = "";
+                ememail = "";
+                emName = "";
+                emPhone = "";
+                currentIllnesses = "";
+                previousIllnesses = "";
+                allergies = "";
                 //role = spinner.getSelectedItem().toString();
                 //role = "Doctor";
 
@@ -113,7 +134,8 @@ public class CreateAccount extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    users = new Users(name,email,phoneNumber,password);
+                                    users = new Users(name,email,phoneNumber,password,patientID, firstName, middleName, lastName,pemail, dateBirth,
+                                            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                                     users.setRole(role);
                                     //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);
@@ -140,7 +162,7 @@ public class CreateAccount extends AppCompatActivity {
         String userID = currentUser.getUid();//THIS IS NEW
         String keyId = reference.push().getKey();
         reference.child(userID).setValue(users);
-        Intent intent = new Intent(this,Homepage.class);
+        Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
     }
 }

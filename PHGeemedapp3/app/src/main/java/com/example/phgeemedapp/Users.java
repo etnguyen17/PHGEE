@@ -2,20 +2,41 @@ package com.example.phgeemedapp;
 
 public class Users {
 
-        String name,email, phonenum, password,role;
+    String name,email, phonenum, password,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
+            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
 
-        //BasicInfo basicInfo;
+    //BasicInfo basicInfo;
 
     public Users() {
     }
 
-    public Users(String name, String email,  String phonenum, String password) {
+    public Users(String name, String email, String phonenum, String password, String patientID, String firstName, String middleName, String lastName, String pemail, String dateBirth, String bloodType, String RHfactor, String maritalStatus, String age, String phone, String mobile, String ememail,
+                 String emName, String emPhone, String currentIllnesses, String previousIllnesses, String allergies) {
         this.name = name;
         this.email = email;
         this.phonenum = phonenum;
-        //this.username = username;
         this.password = password;
+        this.role = role;
+        this.patientID = patientID;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.pemail = pemail;
+        this.dateBirth = dateBirth;
+        this.bloodType = bloodType;
+        this.RHfactor = RHfactor;
+        this.maritalStatus = maritalStatus;
+        this.age = age;
+        this.phone = phone;
+        this.mobile = mobile;
+        this.ememail = ememail;
+        this.emName = emName;
+        this.emPhone = emPhone;
+        this.currentIllnesses = currentIllnesses;
+        this.previousIllnesses = previousIllnesses;
+        this.allergies = allergies;
     }
+
     public String getRole(){return role;}
     public void setRole(String role){this.role = role;}
 

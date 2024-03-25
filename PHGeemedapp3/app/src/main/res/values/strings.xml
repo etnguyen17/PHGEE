@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">PHGeemedapp</string>
     <string name="title_activity_search">Search</string>
+    <string name="navigation_drawer_open">open navigation drawer</string>
+    <string name="navigation_drawer_close">close navigation drawer</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -134,4 +136,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Logout</string>
 </resources>

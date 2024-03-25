@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuHome"
+            android:title="Home"
+            android:icon="@drawable/home"
+            />
+
+    </group>
+        <item
+            android:title="Profile">
+            <menu>
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menuProfile"
+                    android:title="Profile"
+                    android:icon="@drawable/profile"/>
+                </group>
+            </menu>
+        </item>
+    <item
+        android:title="Patient">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menuSearchPatient"
+                    android:title="Search Patients"
+                    android:icon="@drawable/patients"/>
+                <item
+                    android:id="@+id/menuAddeEditpatient"
+                    android:title="Add/Edit Patients"
+                    android:icon="@drawable/patients"/>
+            </group>
+        </menu>
+    </item>
+    <item
+        android:title="Appointments">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menuCreateAppointments"
+                    android:title="Schedule Appointment"
+                    android:icon="@drawable/appointment"/>
+            </group>
+        </menu>
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuSettings"
+            android:title="Settings"
+            android:icon="@drawable/settings"
+            />
+
+    </group>
+</menu>
