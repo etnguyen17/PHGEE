@@ -2,44 +2,22 @@ package com.example.phgeemedapp;
 
 public class Users {
 
-    String name,email, phonenum, password,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
-            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
+    String name,email, phonenum, password,role, userID;
 
     //BasicInfo basicInfo;
 
     public Users() {
     }
 
-    public Users(String name, String email, String phonenum, String password, String patientID, String firstName, String middleName, String lastName, String pemail, String dateBirth, String bloodType, String RHfactor, String maritalStatus, String age, String phone, String mobile, String ememail,
-                 String emName, String emPhone, String currentIllnesses, String previousIllnesses, String allergies) {
+    public Users(String name, String email, String phonenum, String password, String Role) {
+        //this.userID = userID;
         this.name = name;
         this.email = email;
         this.phonenum = phonenum;
         this.password = password;
-        this.role = role;
-        this.patientID = patientID;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.pemail = pemail;
-        this.dateBirth = dateBirth;
-        this.bloodType = bloodType;
-        this.RHfactor = RHfactor;
-        this.maritalStatus = maritalStatus;
-        this.age = age;
-        this.phone = phone;
-        this.mobile = mobile;
-        this.ememail = ememail;
-        this.emName = emName;
-        this.emPhone = emPhone;
-        this.currentIllnesses = currentIllnesses;
-        this.previousIllnesses = previousIllnesses;
-        this.allergies = allergies;
+        this.role = Role;
+
     }
-
-    public String getRole(){return role;}
-    public void setRole(String role){this.role = role;}
-
     public String getName() {
         return name;
     }
@@ -64,7 +42,6 @@ public class Users {
         this.phonenum = phonenum;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -73,7 +50,22 @@ public class Users {
         this.password = password;
     }
 
-   /* public class BasicInfo {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getIDUser() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID= userID;
+    }
+
+/* public class BasicInfo {
 
         public String bloodType = "Need Update";
         public String getBloodType() {
@@ -85,4 +77,16 @@ public class Users {
         }
    }
     */
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phonenum='" + phonenum + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", userID='" + userID + '\'' +
+                '}';
+    }
 }

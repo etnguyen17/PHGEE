@@ -38,13 +38,17 @@ public class CreateAccount extends AppCompatActivity {
 
     FirebaseDatabase database;
 
-    DatabaseReference reference;
-    static final String USER = "user";
+    DatabaseReference reference, ref2;
+    static final String USER = "user2";
     static final String TAG = "RegisterActivity";
     String[] roles = new String[]{"Patient","Nurse","Doctor"};
+    private DatabaseReference mDatabase;
 
     Users users;
+    patient patient;
     //BasicInfo basicInfo;
+    String name,email,phoneNumber,password,patientID, firstName, middleName, lastName,pemail, dateBirth,
+            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
 
     public void onStart() {
         super.onStart();
@@ -75,7 +79,9 @@ public class CreateAccount extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference(USER);
+        reference = database.getReference("users3");
+        ref2 = database.getReference("Patients");
+        mDatabase = FirebaseDatabase.getInstance().getReference("users3");
         back = findViewById(R.id.back2);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,26 +105,28 @@ public class CreateAccount extends AppCompatActivity {
                 phoneNumber = String.valueOf(editTextPhone.getText());
                 role =String.valueOf(spinner.getSelectedItem().toString());
                 patientID = "";
-                firstName = "";
+                firstName = String.valueOf(editTextName.getText());
                 middleName = "";
                 lastName = "";
-                pemail = "";
+                pemail = String.valueOf(editTextEmail.getText());
                 dateBirth = "";
                 bloodType = "";
                 RHfactor = "";
                 maritalStatus = "";
                 age = "";
-                phone = "";
-                mobile = "";
+                phone = String.valueOf(editTextPhone.getText());
+                mobile = String.valueOf(editTextPhone.getText());
                 ememail = "";
                 emName = "";
                 emPhone = "";
                 currentIllnesses = "";
                 previousIllnesses = "";
                 allergies = "";
-                //role = spinner.getSelectedItem().toString();
-                //role = "Doctor";
-
+                FirebaseUser user = mAuth.getCurrentUser();
+                //String userID = getUserID(user);
+                users = new Users(name,email,phoneNumber,password, role);
+                patient = new patient(patientID, firstName, middleName, lastName,pemail, dateBirth,
+                        bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(CreateAccount.this, "Enter email.", Toast.LENGTH_SHORT).show();
                     return;
@@ -134,14 +142,19 @@ public class CreateAccount extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    users = new Users(name,email,phoneNumber,password,patientID, firstName, middleName, lastName,pemail, dateBirth,
-                                            bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                                     users.setRole(role);
                                     //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
-
+                                    if(user != null) {
+                                        if(users.getRole().equals("Doctor")||users.getRole().equals("Nurse")) {
+                                            updateUI(user);
+                                        }
+                                        else{
+                                            ref2.child(firstName).setValue(patient);
+                                            updateUIPatient(user);
+                                        }
+                                    }
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(CreateAccount.this, "Authentication failed.",
@@ -160,9 +173,24 @@ public class CreateAccount extends AppCompatActivity {
         //Try AuthID to actually replace the new userID....This means we get the auth ID keys and paste it to the corresponding user ID keys
         //This relates to getting the correct info displayed from homepage
         String userID = currentUser.getUid();//THIS IS NEW
-        String keyId = reference.push().getKey();
+        //String keyId = reference.push().getKey();
         reference.child(userID).setValue(users);
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
+    }
+    public void updateUIPatient(FirebaseUser currentUser){
+        //Try AuthID to actually replace the new userID....This means we get the auth ID keys and paste it to the corresponding user ID keys
+        //This relates to getting the correct info displayed from homepage
+        String userID = currentUser.getUid();//THIS IS NEW
+        //String keyId = reference.push().getKey();
+        reference.child(userID).setValue(users);
+        Intent intent = new Intent(this, HomepagePatientActivity.class);
+        startActivity(intent);
+    }
+    public void writeNewUser() {
+
+    }
+    public String getUserID(FirebaseUser currentUser){
+        return currentUser.getUid();
     }
 }

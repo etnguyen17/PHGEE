@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomePageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomePageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -37,47 +33,16 @@ public class HomePageFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     NavigationView navigationView;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    DatabaseReference doctor, patient;
+    String role;
     public HomePageFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomePageFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomePageFragment newInstance(String param1, String param2) {
-        HomePageFragment fragment = new HomePageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_home_page, container, false);
+            View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         editName = view.findViewById(R.id.textViewName);
         editEmail = view.findViewById(R.id.textViewEmail);
         editPhone = view.findViewById(R.id.textViewNumber);
@@ -86,29 +51,54 @@ public class HomePageFragment extends Fragment {
         if(firebaseUser == null) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
         } else {
+            //role = checkType(firebaseUser);
             showUserProfile(firebaseUser);
         }
         return view;
     }
     private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user");
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
         referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
-                if (users != null) {
+                //patient patient = snapshot.getValue(patient.class);
+                if(users != null) {
                     sName = "Name: " + users.name;
                     sEmail = "Email: " + users.email;
                     sPhone = "Phone Number: " + users.phonenum;
                     editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
-                } else {
-
+                }else {
                     editName.setText("Name-Error, Couldn't reach user info");
                     editEmail.setText("Email-Error");
                     editPhone.setText("Phone-Error");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+   /* public String checkType(FirebaseUser currentUser){
+        String roles = "Doctor and Nurse";
+        String roles2 = "Patient";
+        String userID = currentUser.getUid();
+        final String[] userIDTEMP = new String[1];
+        final String[] temprole = new String[1];
+        final Boolean[] temp = new Boolean[2];
+        doctor = FirebaseDatabase.getInstance().getReference("user2");
+        doctor.child("Doctor and Nurse").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                String roles = users.getRole();
+                if(roles.equals("Doctor")||roles.equals("Nurse")){
+                    temp[0] = true;
                 }
             }
 
@@ -117,6 +107,67 @@ public class HomePageFragment extends Fragment {
 
             }
         });
+        doctor.child("Patient").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                assert users != null;
+                String roles = users.getRole();
+                if((roles.equals("Doctor"))||roles.equals("Nurse")) {
+                    temp[1] = true;
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if(temp[0] != null){
+            return roles;
+        }
+        else if(temp[1]!= null) {
+            return roles2;
+        }
+        return "";
+    }*/
+    }
+    public boolean checkIFDOC(){
+        final Boolean[] bol = {false};
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user3");
+        // if(auth.getCurrentUser() != null) {
+        String temp = auth.getCurrentUser().getUid();
+        //assert user != null;
+        // String userID = user.getUid();
+        referenceProfile.child(temp).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //patient patient = snapshot.getValue(patient.class);
+                Users users = snapshot.getValue(Users.class);
+                if (users != null) {
+                    //temp = patient.userID;
+                    // assert patient != null;
+                    // assert users != null;
+                    role = users.getRole();
+                    if (role.equals("Doctor")||role.equals("Nurse")) {
+                        bol[0] = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+        // }
+        //else{
+        //auth.signOut();
+        //   Intent intent = new Intent(this, SignIn.class);
+        //    startActivity(intent);
+        // }
+        return bol[0];
     }
 }
