@@ -9,12 +9,13 @@ public class Users {
     public Users() {
     }
 
-    public Users(String name, String email, String phonenum, String password) {
+    public Users(String name, String email, String phonenum, String password, String Role) {
         //this.userID = userID;
         this.name = name;
         this.email = email;
         this.phonenum = phonenum;
         this.password = password;
+        this.role = Role;
 
     }
     public String getName() {
@@ -76,4 +77,16 @@ public class Users {
         }
    }
     */
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phonenum='" + phonenum + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", userID='" + userID + '\'' +
+                '}';
+    }
 }

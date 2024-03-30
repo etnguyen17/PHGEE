@@ -38,7 +38,7 @@ public class CreateAccount extends AppCompatActivity {
 
     FirebaseDatabase database;
 
-    DatabaseReference reference;
+    DatabaseReference reference, ref2;
     static final String USER = "user2";
     static final String TAG = "RegisterActivity";
     String[] roles = new String[]{"Patient","Nurse","Doctor"};
@@ -79,8 +79,9 @@ public class CreateAccount extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference(USER);
-        mDatabase = FirebaseDatabase.getInstance().getReference("users2");
+        reference = database.getReference("users3");
+        ref2 = database.getReference("Patients");
+        mDatabase = FirebaseDatabase.getInstance().getReference("users3");
         back = findViewById(R.id.back2);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +105,7 @@ public class CreateAccount extends AppCompatActivity {
                 phoneNumber = String.valueOf(editTextPhone.getText());
                 role =String.valueOf(spinner.getSelectedItem().toString());
                 patientID = "";
-                firstName = "";
+                firstName = String.valueOf(editTextName.getText());
                 middleName = "";
                 lastName = "";
                 pemail = String.valueOf(editTextEmail.getText());
@@ -123,7 +124,7 @@ public class CreateAccount extends AppCompatActivity {
                 allergies = "";
                 FirebaseUser user = mAuth.getCurrentUser();
                 //String userID = getUserID(user);
-                users = new Users(name,email,phoneNumber,password);
+                users = new Users(name,email,phoneNumber,password, role);
                 patient = new patient(patientID, firstName, middleName, lastName,pemail, dateBirth,
                         bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies);
                 if (TextUtils.isEmpty(email)){
@@ -145,12 +146,14 @@ public class CreateAccount extends AppCompatActivity {
                                     //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    assert user != null;
-                                    users.setUserID(user.getUid());
-                                    if(role.equals("Doctor")||role.equals("Nurse")) {
-                                        updateUIDoc(user);
-                                    } else  {
-                                        updateUIPatient(user);
+                                    if(user != null) {
+                                        if(users.getRole().equals("Doctor")||users.getRole().equals("Nurse")) {
+                                            updateUI(user);
+                                        }
+                                        else{
+                                            ref2.child(firstName).setValue(patient);
+                                            updateUIPatient(user);
+                                        }
                                     }
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -166,12 +169,12 @@ public class CreateAccount extends AppCompatActivity {
 
     }
 
-    public void updateUIDoc(FirebaseUser currentUser){
+    public void updateUI(FirebaseUser currentUser){
         //Try AuthID to actually replace the new userID....This means we get the auth ID keys and paste it to the corresponding user ID keys
         //This relates to getting the correct info displayed from homepage
         String userID = currentUser.getUid();//THIS IS NEW
-        String keyId = reference.push().getKey();
-        reference.child("Doctors and Nurses").child(userID).setValue(users);
+        //String keyId = reference.push().getKey();
+        reference.child(userID).setValue(users);
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
     }
@@ -179,8 +182,8 @@ public class CreateAccount extends AppCompatActivity {
         //Try AuthID to actually replace the new userID....This means we get the auth ID keys and paste it to the corresponding user ID keys
         //This relates to getting the correct info displayed from homepage
         String userID = currentUser.getUid();//THIS IS NEW
-        String keyId = reference.push().getKey();
-        reference.child("Patients").child(userID).setValue(patient);
+        //String keyId = reference.push().getKey();
+        reference.child(userID).setValue(users);
         Intent intent = new Intent(this, HomepagePatientActivity.class);
         startActivity(intent);
     }

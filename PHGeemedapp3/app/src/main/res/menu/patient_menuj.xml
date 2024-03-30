@@ -5,7 +5,7 @@
     tools:ignore="MissingDefaultResource">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menuHome2"
+            android:id="@+id/menuHome"
             android:title="Home"
             android:icon="@drawable/home"
             />

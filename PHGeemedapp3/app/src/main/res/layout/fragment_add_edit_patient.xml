@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".add_edit_patientFragment">
+    tools:context=".add_edit_patientFragment"
+    android:background="@drawable/backgroundgradiant">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

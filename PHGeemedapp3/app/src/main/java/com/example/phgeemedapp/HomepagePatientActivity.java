@@ -128,7 +128,7 @@ public class HomepagePatientActivity extends AppCompatActivity {
     }
 
     //@Override
-    /*public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.logoutUser) {
             FirebaseAuth.getInstance().signOut();
@@ -138,20 +138,20 @@ public class HomepagePatientActivity extends AppCompatActivity {
         }
         //drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }*/
+    }
 
     public void updateNavHeader() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         View headerView = navigationView.getHeaderView(0);
         TextView navName = headerView.findViewById(R.id.nav_name);
         String userID = user.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user2");
-        referenceProfile.child("Patients").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                patient patient = snapshot.getValue(patient.class);
-                if (patient != null) {
-                    navName.setText("Hi, " +patient.pemail);
+                Users user = snapshot.getValue(Users.class);
+                if (user != null) {
+                    navName.setText("Hi, " +user.name);
                 }
                 else{
                     navName.setText("No username");

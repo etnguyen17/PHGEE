@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph2.xml"
-    app:startDestination="@id/menuHome2">
+    app:startDestination="@id/menuHome">
 
     <fragment
-        android:id="@+id/menuHome2"
+        android:id="@+id/menuHome"
         android:name="com.example.phgeemedapp.HomepagePatientFragment"
-        android:label="fragment_homepage_patient"
+        android:label="fragment_home_page"
         tools:layout="@layout/fragment_homepage_patient" />
     <fragment
         android:id="@+id/menuProfile2"

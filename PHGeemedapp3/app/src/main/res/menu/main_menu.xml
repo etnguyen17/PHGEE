@@ -2,7 +2,8 @@
 
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/menu">
+    android:id="@+id/menu"
+    android:background="@drawable/backgroundgradiant">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menuHome"

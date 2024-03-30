@@ -1,7 +1,7 @@
 package com.example.phgeemedapp;
 
 public class patient {
-    String patientID, firstName, middleName, lastName,pemail, dateBirth, bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
+    String name, pass, role, userID, patientID, firstName, middleName, lastName,pemail, dateBirth, bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
 
     public patient(){
 
@@ -27,7 +27,31 @@ public class patient {
         this.previousIllnesses = previousIllnesses;
         this.allergies = allergies;
     }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getpass(){
+        return pass;
+    }
+    public void setpass(String pass){
+        this.pass = pass;
+    }
+    public String getPRole(){
+        return role;
+    }
+    public void setPRole(String role){
+        this.role = role;
+    }
+    public String getUserkey() {
+        return userID;
+    }
 
+    public void setUserkey(String userID) {
+        this.userID= userID;
+    }
     public String getPatientID() {
         return patientID;
     }

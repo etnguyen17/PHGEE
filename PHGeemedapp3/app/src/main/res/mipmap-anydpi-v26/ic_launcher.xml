@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@drawable/phgee" />
-    <foreground android:drawable="@drawable/phgee" />
-    <monochrome android:drawable="@drawable/phgee" />
+    <background android:drawable="@drawable/phgee_foreground" />
+    <foreground android:drawable="@drawable/phgee_foreground"  />
+    <monochrome android:drawable="@drawable/phgee_foreground"  />
 </adaptive-icon>

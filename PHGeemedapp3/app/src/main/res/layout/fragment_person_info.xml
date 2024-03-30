@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".personInfoFragment">
+    tools:context=".personInfoFragment"
+    android:background="@drawable/backgroundgradiant">
 
     <!-- TODO: Update blank fragment layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,18 +26,163 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.072" />
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
+        <ImageView
+            android:id="@+id/profilepic"
+            android:layout_width="134dp"
+            android:layout_height="120dp"
+            android:src="@drawable/profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
-            tools:layout_editor_absoluteX="307dp" />
+            app:layout_constraintVertical_bias="0.206" />
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:focusable="false"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.519" />
+
+        <EditText
+            android:id="@+id/email2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:focusable="false"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.463" />
+
+        <EditText
+            android:id="@+id/phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:focusable="false"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.415" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:focusable="false"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.362" />
+
+        <Button
+            android:id="@+id/edname"
+            android:layout_width="68dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:text="@string/edit1"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.366" />
+
+        <Button
+            android:id="@+id/edpic"
+            android:layout_width="68dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="484dp"
+            android:background="@android:color/transparent"
+            android:text="@string/edit2"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profilepic" />
+
+        <Button
+            android:id="@+id/edemail"
+            android:layout_width="68dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:background="@android:color/transparent"
+            android:text="@string/edit3"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/email2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.469" />
+
+        <Button
+            android:id="@+id/edpass"
+            android:layout_width="68dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:text="@string/edit4"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pass"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.526" />
+
+        <Button
+            android:id="@+id/edPhone"
+            android:layout_width="68dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:background="@android:color/transparent"
+            android:text="@string/edit5"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/phonenum"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.421" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="90dp"
+            android:layout_height="154dp"
+            android:layout_marginBottom="332dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

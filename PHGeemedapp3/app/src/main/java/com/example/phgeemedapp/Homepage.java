@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,52 +29,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class Homepage extends AppCompatActivity {
     private Button button;
     TextView editName, barName, editEmail, editPhone;
 
-    String sName, sName2, sEmail, sPhone;
+    String sName, sName2, sEmail, sPhone, temp;
+    String Role = "";
     FirebaseAuth auth;
-    FirebaseUser user;
+    String user;
+    Users users;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_homepage);
-        //Toast.makeText(getApplicationContext(), "Going to DocPage", Toast.LENGTH_SHORT).show();
+        NavController navController = Navigation.findNavController(this, R.id.navigationHostFragment);
+        NavController navController2 = Navigation.findNavController(this, R.id.navigationHostFragment);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        user = auth.getCurrentUser();
         findViewById(R.id.menuIcon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        NavController navController = Navigation.findNavController(this,R.id.navigationHostFragment);
-        NavigationUI.setupWithNavController(navigationView,navController);
+        // NavController navController = Navigation.findNavController(this, R.id.navigationHostFragment);
+        NavigationUI.setupWithNavController(navigationView, navController);
         findViewById(R.id.moreIcon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getApplicationContext(), "Going to DocPage", Toast.LENGTH_SHORT).show();
                 PopupMenu popupMenu = new PopupMenu(Homepage.this, v);
                 popupMenu.getMenuInflater().inflate(R.menu.dots_menu, popupMenu.getMenu());
-
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
-                        if(itemId== R.id.logoutUser){
-                                FirebaseAuth.getInstance().signOut();
-                                finish();
-                                Intent intent = new Intent(getApplicationContext(), SignIn.class);
-                                startActivity(intent);
-                                Toast.makeText(Homepage.this, "You have been signed out", Toast.LENGTH_SHORT).show();
-                                return true;
+                        if (itemId == R.id.logoutUser) {
+                            FirebaseAuth.getInstance().signOut();
+                            finish();
+                            Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                            startActivity(intent);
+                            Toast.makeText(Homepage.this, "You have been signed out", Toast.LENGTH_SHORT).show();
+                            return true;
                         }
                         return false;
                     }
@@ -81,78 +84,28 @@ public class Homepage extends AppCompatActivity {
                 popupMenu.show();
             }
         });
-        updateNavHeader();
-
-
-      /*  if (firebaseUser == null) {
-            Toast.makeText(Homepage.this, "Error", Toast.LENGTH_LONG).show();
-        } else {
-            showUserProfile(firebaseUser);
-        }*/
+        updateDocNavHeader();
     }
-    /*private void showUserProfile(FirebaseUser firebaseUser) {
-        String userID = firebaseUser.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user");
-        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                if (users != null) {
-                    sName = "Name: " + users.name;
-                    // sName2 = "Hi," + users.name;
-                    sEmail = "Email: " + users.email;
-                    sPhone = "Phone Number: " + users.phonenum;
-                    editName.setText(sName);
-                    // barName.setText(sName);
-                    editEmail.setText(sEmail);
-                    editPhone.setText(sPhone);
-                } else {
-
-                    editName.setText("Name-Error, Couldn't reach user info");
-                    editEmail.setText("Email-Error");
-                    editPhone.setText(userID);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }*/
-
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawers();
         } else {
             super.onBackPressed();
         }
     }
 
-    //@Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.logoutUser) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(getApplicationContext(), SignIn.class);
-            startActivity(intent);
-            finish();
-        }
-        //drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    public void updateNavHeader() {
+    public void updateDocNavHeader() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView navName = headerView.findViewById(R.id.nav_name);
-        String userID = user.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user2");
-        referenceProfile.child("Doctors and Nurses").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        String userID = auth.getCurrentUser().getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
+               // patient patient = snapshot.getValue(patient.class);
                 if (users != null) {
                     navName.setText("Hi, " +users.name);
                 }
@@ -172,6 +125,4 @@ public class Homepage extends AppCompatActivity {
         inflater.inflate(R.menu.dots_menu, menu);
         return true;
     }
-
-
 }

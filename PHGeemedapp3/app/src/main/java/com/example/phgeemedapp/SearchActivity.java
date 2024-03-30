@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         recyclerView = findViewById(R.id.userList);
-        database = FirebaseDatabase.getInstance().getReference("user");
+        database = FirebaseDatabase.getInstance().getReference("users3");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -54,9 +54,11 @@ public class SearchActivity extends AppCompatActivity {
                     Users user = dataSnapshot.getValue(Users.class);
                     //only patients will be show on card is search patients
                     //assert user != null;
-                    //if(Objects.equals(user.getRole(), "Patient")) {
-                        list.add(user);
-                   // }
+                    if(user!=null) {
+                        if (Objects.equals(user.getRole(), "Patient")) {
+                            list.add(user);
+                        }
+                    }
                 }
                 myAdapter.notifyDataSetChanged();
             }
@@ -77,6 +79,7 @@ public class SearchActivity extends AppCompatActivity {
     public  void openHomepage(){
         Intent intent = new Intent (this, Homepage.class);
         startActivity(intent);
+        finish();
     }
 
 }

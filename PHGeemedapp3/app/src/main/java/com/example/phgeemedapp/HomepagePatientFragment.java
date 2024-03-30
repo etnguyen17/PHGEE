@@ -49,28 +49,30 @@ public class HomepagePatientFragment extends Fragment {
         } else {
             //role = checkType(firebaseUser);
             showUserProfile(firebaseUser);
-        }
+       }
         return view;
     }
 
     private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user2");
-        referenceProfile.child("Patients").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Users users = snapshot.getValue(Users.class);
-                patient patient = snapshot.getValue(patient.class);
-                if (patient != null) {
+                Users users = snapshot.getValue(Users.class);
+                //patient patient = snapshot.getValue(patient.class);
+                if(users!=null){
+               // if (patient != null) {
                    // sName = "Name: " + patient.firstName + patient.lastName;
-                    sEmail = "Email: " + patient.pemail;
-                    sPhone = "Phone Number: " + patient.phone;
-                   //editName.setText(sName);
+                    sName = "Name: " + users.name;
+                    sEmail = "Email: " + users.email;
+                    sPhone = "Phone Number: " + users.phonenum;
+                    editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
                 } else {
 
-                   // editName.setText("Name-Error, Couldn't reach user info");
+                    editName.setText("Name-Error, Couldn't reach user info");
                     editEmail.setText("Email-Error");
                     editPhone.setText("Phone-Error");
                 }
