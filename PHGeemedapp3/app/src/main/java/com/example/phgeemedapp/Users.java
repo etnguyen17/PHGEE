@@ -1,12 +1,27 @@
 package com.example.phgeemedapp;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Users {
 
     String name,email, phonenum, password,role, userID;
 
     //BasicInfo basicInfo;
 
+    List<Users> patientsList; // List of patients for each doctor
+
     public Users() {
+        this.patientsList = new ArrayList<>();
+
     }
 
     public Users(String name, String email, String phonenum, String password, String Role) {
@@ -16,7 +31,25 @@ public class Users {
         this.phonenum = phonenum;
         this.password = password;
         this.role = Role;
+        this.patientsList = new ArrayList<>();
 
+    }
+
+    public List<Users> getPatients() {
+        return patientsList;
+    }
+
+    public void setPatients(List<Users> patients) {
+        this.patientsList = patients;
+    }
+
+    public void addPatient(Users patient) {
+        patientsList.add(patient);
+    }
+
+    public void removePatient(Users patient) {
+        // Remove the patient from the local list
+        patientsList.remove(patient);
     }
     public String getName() {
         return name;
