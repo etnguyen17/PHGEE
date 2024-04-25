@@ -13,9 +13,11 @@
     <string name="logout">Logout</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
-    <string name="edit1">edit</string>
+    <string name="Save">Save</string>
     <string name="edit2">edit</string>
     <string name="edit3">edit</string>
     <string name="edit4">edit</string>
     <string name="edit5">edit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

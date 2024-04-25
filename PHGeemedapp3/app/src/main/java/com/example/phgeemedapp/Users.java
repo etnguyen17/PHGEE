@@ -1,12 +1,19 @@
 package com.example.phgeemedapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Users {
 
-    String name,email, phonenum, password,role, userID;
+    String name,email, phonenum, password,role, userID, profileURl;
 
     //BasicInfo basicInfo;
 
+    List<Users> patientsList; // List of patients for each doctor
+
     public Users() {
+        this.patientsList = new ArrayList<>();
+
     }
 
     public Users(String name, String email, String phonenum, String password, String Role) {
@@ -16,7 +23,25 @@ public class Users {
         this.phonenum = phonenum;
         this.password = password;
         this.role = Role;
+        this.patientsList = new ArrayList<>();
 
+    }
+
+    public List<Users> getPatients() {
+        return patientsList;
+    }
+
+    public void setPatients(List<Users> patients) {
+        this.patientsList = patients;
+    }
+
+    public void addPatient(Users patient) {
+        patientsList.add(patient);
+    }
+
+    public void removePatient(Users patient) {
+        // Remove the patient from the local list
+        patientsList.remove(patient);
     }
     public String getName() {
         return name;
@@ -63,6 +88,12 @@ public class Users {
 
     public void setUserID(String userID) {
         this.userID= userID;
+    }
+    public String getProfilePic(){
+        return profileURl;
+    }
+    public void setProfilePic(String url){
+        this.profileURl = url;
     }
 
 /* public class BasicInfo {

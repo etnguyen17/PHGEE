@@ -35,6 +35,10 @@
                     android:id="@+id/menuAddeEditpatient"
                     android:title="Add/Edit Patients"
                     android:icon="@drawable/patients"/>
+                <item
+                    android:id="@+id/menuListPatients"
+                    android:title="Patient List"
+                    android:icon="@drawable/patients"/>
             </group>
         </menu>
     </item>

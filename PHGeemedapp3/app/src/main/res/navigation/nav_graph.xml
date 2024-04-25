@@ -29,4 +29,9 @@
         android:name="com.example.phgeemedapp.SearchActivity"
         android:label="activity_search"
         tools:layout="@layout/activity_search" />
+    <fragment
+        android:id="@+id/menuListPatients"
+        android:name="com.example.phgeemedapp.PatientListFragment"
+        android:label="fragment_patient_list"
+        tools:layout="@layout/fragment_patient_list" />
 </navigation>

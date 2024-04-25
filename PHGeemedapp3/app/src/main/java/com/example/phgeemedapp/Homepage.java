@@ -56,6 +56,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+                updateDocNavHeader();
             }
         });
         // NavController navController = Navigation.findNavController(this, R.id.navigationHostFragment);

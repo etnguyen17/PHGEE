@@ -13,6 +13,21 @@
         android:theme="@style/Theme.PHGeemedapp"
         tools:targetApi="31">
         <activity
+            android:name=".patientInfoPage4"
+            android:exported="false" />
+        <activity
+            android:name=".patientInfoPage3"
+            android:exported="false" />
+        <activity
+            android:name=".patientInfoPage2"
+            android:exported="false" />
+        <activity
+            android:name=".patientInfoPage"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorList"
+            android:exported="false" />
+        <activity
             android:name=".CalenderActivity"
             android:exported="false" />
         <activity
