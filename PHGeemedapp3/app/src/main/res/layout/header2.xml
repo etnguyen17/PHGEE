@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:orientation="vertical"
-    android:background="@color/pink"
+    android:background="@color/darkgreenblue"
     android:gravity="bottom"
     android:padding="20dp">
 
@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:textColor="@color/black"/>
 
 </LinearLayout>

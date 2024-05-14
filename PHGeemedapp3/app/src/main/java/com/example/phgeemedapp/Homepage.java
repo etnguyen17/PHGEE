@@ -28,15 +28,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Homepage extends AppCompatActivity {
     private Button button;
     TextView editName, barName, editEmail, editPhone;
 
-    String sName, sName2, sEmail, sPhone, temp;
+    String sName, sName2, sEmail, sPhone, downloadURL;
     String Role = "";
+    CircleImageView edProfilePic;
     FirebaseAuth auth;
     String user;
     Users users;
@@ -56,6 +60,7 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+                updateDocNavHeader();
             }
         });
         // NavController navController = Navigation.findNavController(this, R.id.navigationHostFragment);
@@ -99,6 +104,7 @@ public class Homepage extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView navName = headerView.findViewById(R.id.nav_name);
+        edProfilePic = headerView.findViewById(R.id.nav_profilepic1);
         String userID = auth.getCurrentUser().getUid();
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
         referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,6 +114,10 @@ public class Homepage extends AppCompatActivity {
                // patient patient = snapshot.getValue(patient.class);
                 if (users != null) {
                     navName.setText("Hi, " +users.name);
+                    downloadURL = users.profileURl;
+                    if(downloadURL!=null){
+                        Picasso.get().load(downloadURL).into(edProfilePic);
+                    }
                 }
                 else{
                     navName.setText("No username");
