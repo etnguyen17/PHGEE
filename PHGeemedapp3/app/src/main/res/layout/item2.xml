@@ -23,16 +23,17 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name Of Patient"
             android:clickable="true"
+            android:text="Name Of Patient"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="26sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Empty"
-            android:visibility="invisible"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/button2"

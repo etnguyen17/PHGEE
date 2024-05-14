@@ -17,9 +17,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
@@ -54,6 +57,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Users user = list.get(position);
+        if(user.profileURl!=null){
+            Picasso.get().load(user.profileURl).into(holder.patientPicture);
+        }
         holder.fullName.setText(user.name);
         holder.email.setText((user.email));
         holder.phoneNumber.setText(user.phonenum);
@@ -106,11 +112,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView fullName, email, phoneNumber,sRole;
+        CircleImageView patientPicture;
         Button addButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            patientPicture = itemView.findViewById(R.id.patientPicture);
             fullName = itemView.findViewById(R.id.editTextListName);
             email = itemView.findViewById(R.id.editTextListEmail);
             phoneNumber = itemView.findViewById((R.id.editTextListPhone));

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@drawable/phgee_foreground" />
-    <foreground android:drawable="@drawable/phgee_foreground"  />
-    <monochrome android:drawable="@drawable/phgee_foreground"  />
+    <background android:drawable="@drawable/medapplogo" />
+    <foreground android:drawable="@drawable/medapplogo"  />
+    <monochrome android:drawable="@drawable/medapplogo"  />
 </adaptive-icon>

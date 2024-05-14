@@ -6,4 +6,8 @@
     <color name="darkpink">#4C1F9D</color>
     <color name="gray">#888</color>
     <color name="blue">#0000FF</color>
+    <color name="lightgreenblue">#9DCCD3</color>
+    <color name="darkgreenblue">#326D7B</color>
+    <color name="darkgreenblue2">#1A3940</color>
+    <color name="skin">#F1D9C8</color>
 </resources>
