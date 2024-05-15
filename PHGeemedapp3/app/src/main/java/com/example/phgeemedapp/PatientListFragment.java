@@ -5,9 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +41,7 @@ public class PatientListFragment extends Fragment {
     RecyclerView recyclerView;
 
     FirebaseAuth auth;
-   // FirebaseUser firebaseUser;
+    // FirebaseUser firebaseUser;
     String sName, sPatientNames;
 
     MyAdapter2 myAdapter2;
@@ -71,6 +76,7 @@ public class PatientListFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +93,7 @@ public class PatientListFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        myAdapter2 = new MyAdapter2(getContext(),list);
+        myAdapter2 = new MyAdapter2(this,list);
         recyclerView.setAdapter(myAdapter2);
 
         myAdapter2.setOnButtonClickListener(new MyAdapter2.OnButtonClickListener() {
@@ -103,34 +109,52 @@ public class PatientListFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Users currentUser = snapshot.getValue(Users.class);
                         if(currentUser != null){
-                            currentUser.removePatient(user);
-                            list.remove(user);
-                            referenceProfile.child(userID).child("patients").child(String.valueOf(position)).removeValue()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Patient removed successfully from Firebase
-                                            myAdapter2.notifyDataSetChanged();
-                                            Toast.makeText(getContext(), "Patient removed successfully", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Failed to remove patient from Firebase
-                                        }
-                                    });
+                            int posNum = currentUser.getPosition(user);
+                            String pos = String.valueOf(currentUser.getPosition(user));
+
+                            if(posNum>=0 && posNum <currentUser.patientsList.size()){
+                                currentUser.removePatient(user);
+                                list.remove(user);
+
+                                referenceProfile.child(userID).child("patients").removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                                for(int i=0;i< currentUser.patientsList.size();i++) {
+                                                    if (i >= posNum) {
+                                                        referenceProfile.child(userID).child("patients").child(String.valueOf(i)).setValue(currentUser.patientsList.get(i + 1));
+
+                                                    } else {
+                                                        referenceProfile.child(userID).child("patients").child(String.valueOf(i)).setValue(currentUser.patientsList.get(i));
+
+                                                    }
+                                                }
+                                                // Patient removed successfully from Firebase
+                                                //currentUser.removePatient(user);
+                                                myAdapter2.notifyDataSetChanged();
+                                                Toast.makeText(getContext(), "Patient removed successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Failed to remove patient from Firebase
+                                            }
+                                        });
+
+                            }
                         }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }
-    });
+        });
 
-    FirebaseUser firebaseUser = auth.getCurrentUser();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
         if(firebaseUser == null) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
         } else {
@@ -175,5 +199,48 @@ public class PatientListFragment extends Fragment {
             }
         });
     }
+    public void openDetailsPage(Users user) {
+        // Check if the current destination is not already PatientDetailFragment
+        //NavController navController = NavHostFragment.findNavController(this);
+        // NavDestination currentDestination = navController.getCurrentDestination();
+        // if (currentDestination != null && currentDestination.getId() != R.id.patientDetailScroll1) {
+        // Navigate to the destination fragment using Navigation Component
+        //  navController.navigate(R.id.patientDetailScroll1);
+        // }
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userID = firebaseUser.getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users thisUser = snapshot.getValue(Users.class);
+                String ref = user.getEmail();
+                thisUser.setRef(ref);
+
+                /*
+                Users thisUser = snapshot.getValue(Users.class);
+                thisUser.setSelectedUser(user);
+                Log.d("User", "Retrieved user: " + thisUser.getName());
+                Log.d("SelectedUser", "Selected user: " + thisUser.getSelectedUser());*/
+                //
+                //spaghetti code, didnt work how i wanted, but this works too
+                //the intent.putExtra grabs the object and throws it to the next page,,had to put serializable implement on Users class
+                Intent intent = new Intent(getContext(), PatientDetailScroll2.class);
+                //intent.putExtra("SelectedUser", (Serializable) user);
+                startActivity(intent);
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 
 }

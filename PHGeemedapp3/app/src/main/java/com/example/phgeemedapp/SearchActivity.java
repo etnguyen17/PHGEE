@@ -85,14 +85,16 @@ public class SearchActivity extends AppCompatActivity {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Users user = dataSnapshot.getValue(Users.class);
                     //only patients will be show on card is search patients
                     //assert user != null;
                     if(user!=null) {
                         if (Objects.equals(user.getRole(), "Patient")) {
-                            list.add(user);
-
+                            if(!list.contains(user)) {
+                                list.add(user);
+                            }
                         }
                     }
                 }
