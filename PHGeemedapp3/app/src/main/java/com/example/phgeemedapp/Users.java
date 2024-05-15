@@ -39,6 +39,15 @@ public class Users {
         patientsList.add(patient);
     }
 
+    public int getPosition(Users user){
+        for(int i=0;i<patientsList.size();i++){
+            if(patientsList.get(i).getName().equals(user.getName())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void removePatient(Users patient) {
         // Remove the patient from the local list
         patientsList.remove(patient);
