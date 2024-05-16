@@ -5,7 +5,7 @@ Members:
 1. Elizabeth Nguyen (DBA)
 2. Eduardo Cordon
 3. Hamzah Ramzan
-4.
+4. Gedric Libatique
 5.
 
 
