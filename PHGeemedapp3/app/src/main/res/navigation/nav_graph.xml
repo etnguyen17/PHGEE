@@ -34,4 +34,9 @@
         android:name="com.example.phgeemedapp.PatientListFragment"
         android:label="fragment_patient_list"
         tools:layout="@layout/fragment_patient_list" />
+    <activity
+        android:id="@+id/patientDetailScroll2"
+        android:name="com.example.phgeemedapp.PatientDetailScroll2"
+        android:label="activity_patient_detail_scroll2"
+        tools:layout="@layout/activity_patient_detail_scroll2" />
 </navigation>
