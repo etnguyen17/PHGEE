@@ -1,24 +1,33 @@
 package com.example.phgeemedapp;
 
-import android.annotation.SuppressLint;
+
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+
 import com.google.firebase.auth.FirebaseAuth;
+
 
 import java.util.ArrayList;
 
 public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2> {
 
     FirebaseAuth auth;
+
+    private PatientListFragment mFragment;
+    private Context mContext;
     Context context;
     ArrayList<Users> list;
 
@@ -35,27 +44,27 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2> {
     @NonNull
     @Override
     public MyAdapter2.MyViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(context).inflate(R.layout.item2,parent,false);
         return new MyAdapter2.MyViewHolder2((v));
     }
 
-    public MyAdapter2(Context context, ArrayList<Users> list) {
-        this.context = context;
+    public MyAdapter2(PatientListFragment fragment, ArrayList<Users> list) {
+        mFragment = fragment;
         this.list = list;
         auth = FirebaseAuth.getInstance();
     }
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, int position) {
         Users user = list.get(position);
-        if(user!=null) {
-            holder.fullName.setText(user.name);
-        }
+        holder.fullName.setText(user.name);
 
         holder.fullName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Launch new activity here
-                openDetailsPage(user);
+                mFragment.openDetailsPage(user);
+
             }
         });
 
@@ -85,13 +94,5 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2> {
     public void filterList(ArrayList<Users> filteredList) {
         list = filteredList;
         notifyDataSetChanged();
-    }
-    private void openDetailsPage(Users user) {
-        // Open the new activity to view user details
-        Intent intent = new Intent(context, patientInfoPage.class); // Replace UserDetailsActivity with the actual activity class
-        // Pass any necessary data to the new activity using intent extras
-        //NEED TO CHANGE BOTTOM TEXT, SO THE PAGES COULD CARRY USER INFO, or something similar
-        //intent.putExtra("userId", user.getId()); // Example of passing user ID
-        context.startActivity(intent);
     }
 }

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PHGeemedapp"
         tools:targetApi="31">
         <activity
+            android:name=".PatientDetailScroll2"
+            android:exported="false" />
+        <activity
             android:name=".patientInfoPage4"
             android:exported="false" />
         <activity
