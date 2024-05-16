@@ -73,12 +73,39 @@ public class HomePageFragment extends Fragment {
                 Users user = snapshot.getValue(Users.class);
                 if(user!=null){
                     appointments = user.getAppointments();
-                    date1 = appointments.get(0).toString();
-                    date2 = appointments.get(1).toString();
-                    date3 = appointments.get(2).toString();
-                    date1Text.setText(date1);
-                    date2Text.setText(date2);
-                    date3Text.setText(date3);
+                    //E.C added this snip cause when merged, issues
+                    if (appointments != null) {
+                        if(appointments.get(0)!=null &&appointments.size()==1) {
+                            date1 = appointments.get(0).toString();
+                            date2 = "Empty";
+                            date3 = "Empty";
+                        }
+
+                        else if(appointments.get(1)!=null && appointments.size()==2) {
+                            date1 = appointments.get(0).toString();
+
+                            date2 = appointments.get(1).toString();
+                            date3 = "Empty";
+
+                        }
+
+                        else if(appointments.get(2)!=null && appointments.size()==3) {
+                            date1 = appointments.get(0).toString();
+
+                            date2 = appointments.get(1).toString();
+                            date3 = appointments.get(2).toString();
+
+                        }
+                        else{
+                            date1 = "Empty";
+                            date2 = "Empty";
+                            date3 = "Empty";
+                        }
+
+                        date1Text.setText(date1);
+                        date2Text.setText(date2);
+                        date3Text.setText(date3);
+                    }
                 }
             }
 

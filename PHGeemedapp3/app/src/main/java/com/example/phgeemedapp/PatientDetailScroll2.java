@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 public class PatientDetailScroll2 extends AppCompatActivity {
 
@@ -42,6 +43,10 @@ public class PatientDetailScroll2 extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
     Users selectedUser;
+
+    String key;
+
+    DatabaseReference databaseReference;
 
 
     @Override
@@ -85,15 +90,15 @@ public class PatientDetailScroll2 extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        if(firebaseUser == null) {
-        } else {
+       /* if(firebaseUser != null) {
             showUserProfile(firebaseUser);
-        }
+        }*/
 
         Intent intent = getIntent();
         if (intent.hasExtra("SelectedUser")) {
             // Retrieve the SelectedUser object from the intent extras
             selectedUser = (Users) intent.getSerializableExtra("SelectedUser");
+            getKey(selectedUser);
             showUserProfile(selectedUser);
         }
 
@@ -135,7 +140,7 @@ public class PatientDetailScroll2 extends AppCompatActivity {
                     pAllergies.setFocusable(false);
                     pAllergies.setFocusableInTouchMode(false);
 
-                    showUserProfile(selectedUser);
+                    updateFirebase4();
 
                     bHealth.setText("Edit");
 
@@ -191,7 +196,7 @@ public class PatientDetailScroll2 extends AppCompatActivity {
                     pEAddress.setFocusable(false);
                     pEAddress.setFocusableInTouchMode(false);
 
-                    showUserProfile(selectedUser);
+                    updateFirebase3();
 
                     bEContact.setText("Edit");
 
@@ -247,7 +252,7 @@ public class PatientDetailScroll2 extends AppCompatActivity {
                     pMartial.setFocusable(false);
                     pMartial.setFocusableInTouchMode(false);
 
-                    showUserProfile(selectedUser);
+                    updateFirebase2();
 
                     bBaisc.setText("Edit");
                 }
@@ -255,14 +260,122 @@ public class PatientDetailScroll2 extends AppCompatActivity {
         });
 
     }
-    private void showUserProfile(FirebaseUser firebaseUser) {
+
+
+
+    private void showUserProfile(Users selectedUsers){
+        FirebaseUser firebaseUser = auth.getCurrentUser();
         String userID = firebaseUser.getUid();
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
         referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                String ref = users.getRef();
+                Users user = snapshot.getValue(Users.class);
+                String ref = snapshot.child("userRef").getValue(String.class);
+                referenceProfile.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                            String userEmail = dataSnapshot.child("email").getValue(String.class);
+                            if(userEmail.equals(ref)){
+                                key = dataSnapshot.getKey();
+                                pDob.setText(dataSnapshot.child("Info").child("dob").getValue(String.class));
+                                pBlood.setText(dataSnapshot.child("Info").child("blood").getValue(String.class));
+                                pMartial.setText(dataSnapshot.child("Info").child("martial").getValue(String.class));
+                                pAddress.setText(dataSnapshot.child("Info").child("address").getValue(String.class));
+
+                                pEName.setText(dataSnapshot.child("Info").child("EmergencyN").getValue(String.class));
+                                pEEmail.setText(dataSnapshot.child("Info").child("EmergencyEmail").getValue(String.class));
+                                pEPhone.setText(dataSnapshot.child("Info").child("EmergencyPhone").getValue(String.class));
+                                pEAddress.setText(dataSnapshot.child("Info").child("EmergencyAdd").getValue(String.class));
+
+                                pPrevMed.setText(dataSnapshot.child("Info").child("PrevMedical").getValue(String.class));
+                                pCurrMed.setText(dataSnapshot.child("Info").child("CurrMedical").getValue(String.class));
+                                pAllergies.setText(dataSnapshot.child("Info").child("Allergies").getValue(String.class));
+
+
+                                break;
+                            }
+
+
+                        }
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        pName.setText(selectedUsers.getName());
+        pEmail.setText((selectedUsers.getEmail()));
+        pPhone.setText(selectedUsers.getPhonenum());
+
+    }
+    public void getKey(Users user){
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userID = firebaseUser.getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users user = snapshot.getValue(Users.class);
+                String ref = snapshot.child("userRef").getValue(String.class);
+                referenceProfile.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                            String userEmail = dataSnapshot.child("email").getValue(String.class);
+                            if(userEmail.equals(ref)){
+                                key = dataSnapshot.getKey();
+                                break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+    public void updateFirebase2(){
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                referenceProfile.child(key).child("Info").child("dob").setValue(selectedUser.userInformation.getDob());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("dob")));
+
+                referenceProfile.child(key).child("Info").child("blood").setValue(selectedUser.userInformation.getBloodType());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("blood")));
+
+                referenceProfile.child(key).child("Info").child("martial").setValue(selectedUser.userInformation.getMartialStatus());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("martial")));
+
+                referenceProfile.child(key).child("Info").child("address").setValue(selectedUser.userInformation.getAddress());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("address")));
 
             }
 
@@ -273,26 +386,52 @@ public class PatientDetailScroll2 extends AppCompatActivity {
         });
     }
 
+    public void updateFirebase3(){
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                referenceProfile.child(key).child("Info").child("EmergencyN").setValue(selectedUser.userInformation.getNameE());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("EmergencyN")));
 
-    private void showUserProfile(Users selectedUsers){
-        //    TextView , , , , , , , , , , , pEAddress;
-        pName.setText(selectedUsers.getName());
-        pDob.setText(selectedUsers.userInformation.getDob());
-        pBlood.setText(selectedUsers.userInformation.getBloodType());
-        pMartial.setText(selectedUsers.userInformation.getMartialStatus());
-        //pAge.setText(selectedUsers.userInformation.getAge());
-        pAddress.setText(selectedUsers.userInformation.getAddress());
-        pEName.setText(selectedUsers.userInformation.getNameE());
-        pEEmail.setText(selectedUsers.userInformation.getEmailE());
-        pEPhone.setText(selectedUsers.userInformation.getPhoneE());
-        pEAddress.setText(selectedUsers.userInformation.getAddressE());
-        pEmail.setText((selectedUsers.getEmail()));
-        pPhone.setText(selectedUsers.getPhonenum());
+                referenceProfile.child(key).child("Info").child("EmergencyEmail").setValue(selectedUser.userInformation.getEmailE());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("EmergencyEmail")));
 
-        pPrevMed.setText(selectedUsers.userInformation.getPrevMed());
-        pCurrMed.setText(selectedUsers.userInformation.getCurrIll());
-        pAllergies.setText(selectedUsers.userInformation.getSpecficAllergies());
+                referenceProfile.child(key).child("Info").child("EmergencyPhone").setValue(selectedUser.userInformation.getPhoneE());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("EmergencyPhone")));
 
+                referenceProfile.child(key).child("Info").child("EmergencyAdd").setValue(selectedUser.userInformation.getAddressE());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("EmergencyAdd")));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void updateFirebase4(){
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                referenceProfile.child(key).child("Info").child("PrevMedical").setValue(selectedUser.userInformation.getPrevMed());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("PrevMedical")));
+
+                referenceProfile.child(key).child("Info").child("CurrMedical").setValue(selectedUser.userInformation.getCurrIll());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("CurrMedical")));
+
+                referenceProfile.child(key).child("Info").child("Allergies").setValue(selectedUser.userInformation.getSpecficAllergies());
+                selectedUser.userInformation.setDob(String.valueOf(referenceProfile.child(key).child("Info").child("Allergies")));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void openHomepage() {
@@ -300,5 +439,4 @@ public class PatientDetailScroll2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

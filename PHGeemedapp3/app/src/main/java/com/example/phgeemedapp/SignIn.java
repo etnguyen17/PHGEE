@@ -46,7 +46,7 @@ public class SignIn extends AppCompatActivity {
     String Role = "";
 
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -55,7 +55,7 @@ public class SignIn extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

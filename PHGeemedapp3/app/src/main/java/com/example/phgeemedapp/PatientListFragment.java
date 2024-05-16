@@ -5,9 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +93,7 @@ public class PatientListFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        myAdapter2 = new MyAdapter2(getActivity(),list);
+        myAdapter2 = new MyAdapter2(this,list);
         recyclerView.setAdapter(myAdapter2);
 
         myAdapter2.setOnButtonClickListener(new MyAdapter2.OnButtonClickListener() {
@@ -116,7 +122,7 @@ public class PatientListFragment extends Fragment {
                                             @Override
                                             public void onSuccess(Void aVoid) {
 
-                                                for(int i=0;i< size;i++) {
+                                                for(int i=0;i<size;i++) {
                                                     if (i >= posNum) {
                                                         referenceProfile.child(userID).child("patients").child(String.valueOf(i)).setValue(currentUser.patientsList.get(i + 1));
 
@@ -211,6 +217,7 @@ public class PatientListFragment extends Fragment {
                 Users thisUser = snapshot.getValue(Users.class);
                 String ref = user.getEmail();
                 thisUser.setRef(ref);
+                referenceProfile.child(userID).child("userRef").setValue(ref);
 
                 /*
                 Users thisUser = snapshot.getValue(Users.class);
@@ -221,7 +228,7 @@ public class PatientListFragment extends Fragment {
                 //spaghetti code, didnt work how i wanted, but this works too
                 //the intent.putExtra grabs the object and throws it to the next page,,had to put serializable implement on Users class
                 Intent intent = new Intent(getContext(), PatientDetailScroll2.class);
-                //intent.putExtra("SelectedUser", (Serializable) user);
+                intent.putExtra("SelectedUser", (Serializable) user);
                 startActivity(intent);
                 if (getActivity() != null) {
                     getActivity().finish();
