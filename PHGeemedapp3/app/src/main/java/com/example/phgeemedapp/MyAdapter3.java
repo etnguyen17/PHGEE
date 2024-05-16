@@ -97,10 +97,10 @@ public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder2> {
     }
     private void openDetailsPage(Users user) {
         // Open the new activity to view user details
-        Intent intent = new Intent(context, patientInfoPage.class); // Replace UserDetailsActivity with the actual activity class
+       // Intent intent = new Intent(context, patientInfoPage.class); // Replace UserDetailsActivity with the actual activity class
         // Pass any necessary data to the new activity using intent extras
         //NEED TO CHANGE BOTTOM TEXT, SO THE PAGES COULD CARRY USER INFO, or something similar
         //intent.putExtra("userId", user.getId()); // Example of passing user ID
-        context.startActivity(intent);
+       // context.startActivity(intent);
     }
 }

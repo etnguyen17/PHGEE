@@ -7,7 +7,7 @@ import java.util.List;
 public class Users  implements Serializable {
 
     public static class Information implements Serializable {
-        private String bloodType, dob, martialStatus, address, nameE, emailE, addressE, phoneE, prevMed, currIll, specficAllergies;
+        private String bloodType, dob, martialStatus, address, nameE, emailE, addressE, phoneE, prevMed, currIll, specficAllergies, prescribtion, insurance;
         private int age;
 
         public Information() {
@@ -22,7 +22,20 @@ public class Users  implements Serializable {
             this.prevMed = "null";
             this.currIll = "null";
             this.specficAllergies = "null";
+            this.prescribtion = "null";
+            this.insurance = "null";
+
             this.age = 0;
+        }
+
+        public String getInsurance() {return insurance;}
+
+        public void setInsurance(String insurance) {this.insurance = insurance;}
+
+        public String getPrescribtion(){return prescribtion;}
+
+        public void setPrescribtion(String prescribtion) {
+            this.prescribtion = prescribtion;
         }
 
         public String getBloodType() {

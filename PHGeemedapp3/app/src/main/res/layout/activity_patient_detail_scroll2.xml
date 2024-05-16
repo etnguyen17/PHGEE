@@ -19,11 +19,11 @@
 
             <Button
                 android:id="@+id/buttonH"
-                android:backgroundTint="@color/darkgreenblue"
-                android:textColor="@color/black"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Home" />
+                android:backgroundTint="@color/darkgreenblue"
+                android:text="Home"
+                android:textColor="@color/black" />
 
 
             <TextView
@@ -48,11 +48,11 @@
 
             <Button
                 android:id="@+id/button14"
-                android:backgroundTint="@color/darkgreenblue"
-                android:textColor="@color/black"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Edit" />
+                android:backgroundTint="@color/darkgreenblue"
+                android:text="Edit"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -211,6 +211,27 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/textView52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="Insurance #"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editInsurance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="20dp"
+                android:text="Null"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -222,6 +243,9 @@
 
             <Button
                 android:id="@+id/button15"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/darkgreenblue"
+
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Edit" />
@@ -324,6 +348,9 @@
             <Button
                 android:id="@+id/button16"
                 android:layout_width="100dp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/darkgreenblue"
+
                 android:layout_height="wrap_content"
                 android:text="Edit" />
 
@@ -379,6 +406,8 @@
                 android:text="Specific Allergies List"
                 android:textSize="20sp" />
 
+
+
             <EditText
                 android:id="@+id/editSpecificAllergies"
                 android:layout_width="match_parent"
@@ -390,6 +419,27 @@
                 android:paddingBottom="20dp"
                 android:text="Null"
                 android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="Medical Prescription/Medicine"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editPrescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="20dp"
+                android:text="Null"
+                android:textSize="20sp" />
+
 
             <TextView
                 android:id="@+id/textView37"
@@ -403,6 +453,8 @@
 
             <Button
                 android:id="@+id/button17"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/darkgreenblue"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Edit" />
@@ -443,33 +495,7 @@
                 android:text="Special Notes"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView43"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:text="Upcomming Appointments"
-                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView45"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:text="Doctor Visits"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/textView47"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:text="Schedule"
-                android:textSize="20sp" />
 
 
             <TextView

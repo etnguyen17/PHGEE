@@ -103,6 +103,9 @@ public class AppointmentsFragment extends Fragment {
                 User = auth.getCurrentUser();
                 if(name != null && dateText != null && timeText != null) {
                     appointment = new appointment(name, dateText, timeText);
+                    if (appointments == null) {
+                        appointments = new ArrayList<>();
+                    }
                     appointments.add(appointment);
                 }
                 else{
@@ -120,6 +123,8 @@ public class AppointmentsFragment extends Fragment {
                             if(user != null){
                                 user.setAppointments(appointments);
                                 referenceProfile.child(userID).setValue(user);
+                                Toast.makeText(getActivity(), "Appointment Added", Toast.LENGTH_LONG).show();
+
                             }
                         }
 
