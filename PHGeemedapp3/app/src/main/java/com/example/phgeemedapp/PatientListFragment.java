@@ -5,13 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +87,7 @@ public class PatientListFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        myAdapter2 = new MyAdapter2(this,list);
+        myAdapter2 = new MyAdapter2(getActivity(),list);
         recyclerView.setAdapter(myAdapter2);
 
         myAdapter2.setOnButtonClickListener(new MyAdapter2.OnButtonClickListener() {
@@ -115,13 +109,14 @@ public class PatientListFragment extends Fragment {
                             if(posNum>=0 && posNum <currentUser.patientsList.size()){
                                 currentUser.removePatient(user);
                                 list.remove(user);
+                                int size = currentUser.patientsList.size()-1;
 
                                 referenceProfile.child(userID).child("patients").removeValue()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
 
-                                                for(int i=0;i< currentUser.patientsList.size();i++) {
+                                                for(int i=0;i< size;i++) {
                                                     if (i >= posNum) {
                                                         referenceProfile.child(userID).child("patients").child(String.valueOf(i)).setValue(currentUser.patientsList.get(i + 1));
 

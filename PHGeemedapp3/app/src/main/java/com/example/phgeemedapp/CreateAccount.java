@@ -136,8 +136,9 @@ public class CreateAccount extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password, name, phoneNumber,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
+                String totalappointments, email, password, name, phoneNumber,role,patientID, firstName, middleName, lastName,pemail, dateBirth,
                         bloodType, RHfactor, maritalStatus, age, phone, mobile, ememail, emName, emPhone, currentIllnesses, previousIllnesses, allergies;
+                totalappointments = String.valueOf(0);
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
@@ -182,6 +183,7 @@ public class CreateAccount extends AppCompatActivity {
                                     Toast.makeText(CreateAccount.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
                                     users.setRole(role);
+                                   // users.setTotalAppointments(String.valueOf(0));
                                     //Users.BasicInfo basicInfo = users.new BasicInfo();
                                     //reference.child(name).setValue(helperClass);
                                     FirebaseUser user = mAuth.getCurrentUser();

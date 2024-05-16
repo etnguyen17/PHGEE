@@ -125,6 +125,9 @@ public class Users  implements Serializable {
     Information userInformation;
 
     String name,email, phonenum, password,role, userID, profileURl,refuser;
+    String totalAppointments;
+    List<appointment> appointments;
+    appointment appointment;
 
     //BasicInfo basicInfo;
 
@@ -136,7 +139,7 @@ public class Users  implements Serializable {
 
     }
 
-    public Users(String name, String email, String phonenum, String password, String Role) {
+    public Users(String name, String email, String phonenum, String password, String Role){
         //this.userID = userID;
         this.name = name;
         this.email = email;
@@ -145,9 +148,35 @@ public class Users  implements Serializable {
         this.role = Role;
         this.patientsList = new ArrayList<>();
         this.userInformation = new Information();
+        this.appointments = new ArrayList<>();
         this.refuser = "null";
 
 
+    }
+
+    public String getTotalAppointments() {
+        return totalAppointments;
+    }
+
+    public void setTotalAppointments(String totalAppointments) {
+        this.totalAppointments = totalAppointments;
+    }
+    public int getSize(List<appointment> appointments){
+        return appointments.size();
+    }
+
+    public List<appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<appointment> appointments) {
+        this.appointments = appointments;
+    }
+    public void addAppointments(appointment appointment){
+        appointments.add(appointment);
+    }
+    public void setAppointment(appointment appointment){
+        this.appointment = appointment;
     }
     public String getRef() {
         return refuser;
@@ -170,9 +199,11 @@ public class Users  implements Serializable {
     }
 
     public int getPosition(Users user){
-        for(int i=0;i<patientsList.size();i++){
-            if(patientsList.get(i).getName().equals(user.getName())) {
-                return i;
+        if(user!=null) {
+            for (int i = 0; i < patientsList.size(); i++) {
+                if (patientsList.get(i).getName().equals(user.getName())) {
+                    return i;
+                }
             }
         }
         return -1;

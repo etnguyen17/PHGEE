@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,20 +24,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    TextView editName, barName, editEmail, editPhone;
+    TextView date1Text, date2Text, date3Text, editPhone;
 
-    String sName, sName2, sEmail, sPhone;
+    String date1, date2, date3, sPhone;
     FirebaseAuth auth;
+    FirebaseUser User;
+    List<appointment> appointments;
     FirebaseUser user;
+
     NavigationView navigationView;
     DatabaseReference doctor, patient;
     String role;
+    private RecyclerView recyclerView;
+    private ArrayList<appointment> appointmentArrayList;
+    ArrayList<appointment> list;
+
     public HomePageFragment() {
         // Required empty public constructor
     }
@@ -43,20 +56,49 @@ public class HomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
             View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        editName = view.findViewById(R.id.textViewName);
-        editEmail = view.findViewById(R.id.textViewEmail);
-        editPhone = view.findViewById(R.id.textViewNumber);
+        date1Text = view.findViewById(R.id.date1);
+        date2Text = view.findViewById(R.id.date2);
+        date3Text = view.findViewById(R.id.date3);
+        //editName = view.findViewById(R.id.textViewName);
+      //  editEmail = view.findViewById(R.id.textViewEmail);
+       // editPhone = view.findViewById(R.id.textViewNumber);
+        appointmentArrayList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
+        User = auth.getCurrentUser();
+        String userID = User.getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users user = snapshot.getValue(Users.class);
+                if(user!=null){
+                    appointments = user.getAppointments();
+                    date1 = appointments.get(0).toString();
+                    date2 = appointments.get(1).toString();
+                    date3 = appointments.get(2).toString();
+                    date1Text.setText(date1);
+                    date2Text.setText(date2);
+                    date3Text.setText(date3);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         FirebaseUser firebaseUser = auth.getCurrentUser();
         if(firebaseUser == null) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
         } else {
             //role = checkType(firebaseUser);
-            showUserProfile(firebaseUser);
+            //showUserProfile(firebaseUser);
         }
         return view;
     }
-    private void showUserProfile(FirebaseUser firebaseUser) {
+
+
+    /*private void showUserProfile(FirebaseUser firebaseUser) {
         String userID = firebaseUser.getUid();
         DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
         referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,14 +106,14 @@ public class HomePageFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 //patient patient = snapshot.getValue(patient.class);
-                if(users != null) {
+                if (users != null) {
                     sName = "Name: " + users.name;
                     sEmail = "Email: " + users.email;
                     sPhone = "Phone Number: " + users.phonenum;
                     editName.setText(sName);
                     editEmail.setText(sEmail);
                     editPhone.setText(sPhone);
-                }else {
+                } else {
                     editName.setText("Name-Error, Couldn't reach user info");
                     editEmail.setText("Email-Error");
                     editPhone.setText("Phone-Error");
@@ -84,74 +126,16 @@ public class HomePageFragment extends Fragment {
 
             }
         });
-   /* public String checkType(FirebaseUser currentUser){
-        String roles = "Doctor and Nurse";
-        String roles2 = "Patient";
-        String userID = currentUser.getUid();
-        final String[] userIDTEMP = new String[1];
-        final String[] temprole = new String[1];
-        final Boolean[] temp = new Boolean[2];
-        doctor = FirebaseDatabase.getInstance().getReference("user2");
-        doctor.child("Doctor and Nurse").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                String roles = users.getRole();
-                if(roles.equals("Doctor")||roles.equals("Nurse")){
-                    temp[0] = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        doctor.child("Patient").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                assert users != null;
-                String roles = users.getRole();
-                if((roles.equals("Doctor"))||roles.equals("Nurse")) {
-                    temp[1] = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        if(temp[0] != null){
-            return roles;
-        }
-        else if(temp[1]!= null) {
-            return roles2;
-        }
-        return "";
     }*/
-    }
-    public boolean checkIFDOC(){
-        final Boolean[] bol = {false};
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("user3");
-        // if(auth.getCurrentUser() != null) {
-        String temp = auth.getCurrentUser().getUid();
-        //assert user != null;
-        // String userID = user.getUid();
-        referenceProfile.child(temp).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void checkList(){
+        String userID = User.getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("users3");
+        referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //patient patient = snapshot.getValue(patient.class);
-                Users users = snapshot.getValue(Users.class);
-                if (users != null) {
-                    //temp = patient.userID;
-                    // assert patient != null;
-                    // assert users != null;
-                    role = users.getRole();
-                    if (role.equals("Doctor")||role.equals("Nurse")) {
-                        bol[0] = true;
-                    }
+                Users user = snapshot.getValue(Users.class);
+                if(user!=null){
+                    appointments = user.getAppointments();
                 }
             }
 
@@ -159,15 +143,6 @@ public class HomePageFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
-
         });
-        // }
-        //else{
-        //auth.signOut();
-        //   Intent intent = new Intent(this, SignIn.class);
-        //    startActivity(intent);
-        // }
-        return bol[0];
     }
 }

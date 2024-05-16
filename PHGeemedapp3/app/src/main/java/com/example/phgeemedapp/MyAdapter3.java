@@ -1,6 +1,9 @@
 package com.example.phgeemedapp;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,44 +11,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2> {
+public class MyAdapter3 extends RecyclerView.Adapter<MyAdapter3.MyViewHolder2> {
 
     FirebaseAuth auth;
     Context context;
     ArrayList<Users> list;
 
-    MyAdapter2.OnButtonClickListener buttonClickListener;
+    MyAdapter3.OnButtonClickListener buttonClickListener;
 
     public interface OnButtonClickListener {
         void onButtonClick(int position);
     }
 
-    public void setOnButtonClickListener(MyAdapter2.OnButtonClickListener listener) {
+    public void setOnButtonClickListener(MyAdapter3.OnButtonClickListener listener) {
         this.buttonClickListener = listener;
     }
 
     @NonNull
     @Override
-    public MyAdapter2.MyViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item2,parent,false);
-        return new MyAdapter2.MyViewHolder2((v));
+    public MyAdapter3.MyViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item3, parent,false);
+        return new MyAdapter3.MyViewHolder2((v));
     }
 
-    public MyAdapter2(Context context, ArrayList<Users> list) {
+    public MyAdapter3(Context context, ArrayList<Users> list) {
         this.context = context;
         this.list = list;
         auth = FirebaseAuth.getInstance();
     }
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MyAdapter3.MyViewHolder2 holder, @SuppressLint("RecyclerView") int position) {
         Users user = list.get(position);
         if(user!=null) {
             holder.fullName.setText(user.name);
@@ -78,8 +87,8 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2> {
 
         public MyViewHolder2(@NonNull View itemView) {
             super(itemView);
-            fullName = itemView.findViewById(R.id.textView15);
-            bRemove = itemView.findViewById(R.id.button2);
+            fullName = itemView.findViewById(R.id.namepatient);
+            bRemove = itemView.findViewById(R.id.selectbutton);
         }
     }
     public void filterList(ArrayList<Users> filteredList) {

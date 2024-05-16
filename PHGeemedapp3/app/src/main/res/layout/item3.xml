@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/namepatient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -36,12 +36,12 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/button2"
-            android:backgroundTint="@color/darkgreenblue"
-            android:textColor="@color/black"
+            android:id="@+id/selectbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remove" />
+            android:text="select"
+            android:backgroundTint="@color/darkgreenblue"
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>

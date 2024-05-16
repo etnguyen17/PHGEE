@@ -158,7 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Patient"
-            android:backgroundTint="@color/darkgreenblue2"/>
+            android:backgroundTint="@color/darkgreenblue"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
