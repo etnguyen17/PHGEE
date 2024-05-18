@@ -17,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class forgotPass extends AppCompatActivity {
     private Button button, submit;
-    EditText edEmail;
-    String Email;
+    EditText edEmail, edNumber;
+    String Email, Number;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +26,25 @@ public class forgotPass extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_pass);
         submit = findViewById(R.id.submit1);
         edEmail = findViewById(R.id.EmailAddress);
+        edNumber = findViewById(R.id.ResetNumber);
         mAuth = FirebaseAuth.getInstance();
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Email = edEmail.getText().toString().trim();
-                if(!TextUtils.isEmpty(Email)){
-                    ResetPassword();
-                }else{
+                Number = edNumber.getText().toString().trim();
+                if(!TextUtils.isEmpty(Email) && !TextUtils.isEmpty(Number)){
+                    ResetPasswordByEmail();
+                }
+                else if(!TextUtils.isEmpty(Email) && TextUtils.isEmpty(Number)){
+                    ResetPasswordByEmail();
+                }
+                else if(TextUtils.isEmpty(Email) && !TextUtils.isEmpty(Number)){
+                    ResetPasswordByEmail();
+                }
+                else{
                     edEmail.setError("Email cannot be empty");
+                    edNumber.setError("Phone Number cannot be empty");
                 }
             }
         });
@@ -53,15 +63,15 @@ public class forgotPass extends AppCompatActivity {
         startActivity(intent);
 
     }
-    private void ResetPassword(){
+    private void ResetPasswordByEmail(){
         submit.setVisibility(View.INVISIBLE);
         mAuth.sendPasswordResetEmail(Email).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(forgotPass.this, "Reset  Password link has been sent to your registered Email", Toast.LENGTH_SHORT);
-                openMainActivity();
-            }
-        })
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(forgotPass.this, "Reset  Password link has been sent to your registered Email", Toast.LENGTH_SHORT);
+                        openMainActivity();
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

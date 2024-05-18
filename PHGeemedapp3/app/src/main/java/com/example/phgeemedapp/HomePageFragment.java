@@ -77,15 +77,15 @@ public class HomePageFragment extends Fragment {
                     if (appointments != null) {
                         if(appointments.get(0)!=null &&appointments.size()==1) {
                             date1 = appointments.get(0).toString();
-                            date2 = "Empty";
-                            date3 = "Empty";
+                            date2 = "";
+                            date3 = "";
                         }
 
                         else if(appointments.get(1)!=null && appointments.size()==2) {
                             date1 = appointments.get(0).toString();
 
                             date2 = appointments.get(1).toString();
-                            date3 = "Empty";
+                            date3 = "";
 
                         }
 
@@ -97,9 +97,9 @@ public class HomePageFragment extends Fragment {
 
                         }
                         else{
-                            date1 = "Empty";
-                            date2 = "Empty";
-                            date3 = "Empty";
+                            date1 = "No Appointments";
+                            date2 = "";
+                            date3 = "";
                         }
 
                         date1Text.setText(date1);
